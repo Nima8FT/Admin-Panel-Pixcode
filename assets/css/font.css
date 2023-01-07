@@ -1,0 +1,19 @@
+@font-face {
+    src: url(../font/Poppins-Regular.ttf);
+    font-family: 'popins_regular';
+}
+
+@font-face {
+    src: url(../font/Poppins-Bold.ttf);
+    font-family: 'popins_bold';
+}
+
+@font-face {
+    src: url(../font/Oxanium-Regular.woff);
+    font-family: 'ox_regular';
+}
+
+@font-face {
+    src: url(../font/Oxanium-Bold.woff);
+    font-family: 'ox_bold';
+}
