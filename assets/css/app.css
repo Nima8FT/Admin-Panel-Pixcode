@@ -266,17 +266,6 @@ tbody {
     opacity: 1;
 }
 
-.number>div {
-    width: 25% !important;
-    height: 50% !important;
-    background: var(--pink-dark);
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
 ::-webkit-scrollbar {
     width: 20px;
 }
@@ -383,7 +372,7 @@ form {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid var(--blue-beauty);
+    border: 2px solid var(--blue-beauty);
     text-align: center;
     background: transparent;
     color: var(--color-txt);
