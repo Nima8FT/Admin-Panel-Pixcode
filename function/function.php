@@ -18,4 +18,69 @@ function ReqAPI($url, $data)
     return json_decode($result, true);
 }
 
+
+function aside_menu() {
+    $name_page = explode('/',$_SERVER['REQUEST_URI'])[3];
+    $name_page = explode('.',$name_page)[0];
+    $html = 
+    '<a href="expense.php">
+        <img src="../assets/img/expense.png" alt="Expense">
+        Expense
+    </a>
+
+    <a href="income.php">
+        <img src="../assets/img/income.png" alt="Income">
+        Income
+    </a>
+
+    <a href="stock.php">
+        <img src="../assets/img/stock.png" alt="Stock">
+        Stock
+    </a>
+
+    <a href="skills.php">
+        <img src="../assets/img/skills.png" alt="Skills">
+        Skills
+    </a>
+
+    <a href="activites.php">
+        <img src="../assets/img/activites.png" alt="Activities">
+        Activities
+    </a>
+
+    <a href="users.php">
+        <img src="../assets/img/users.png" alt="Activities">
+        Users
+    </a>';
+
+    switch ($name_page) {
+        case 'expense':
+            $html = str_replace('<a href="expense.php">','<a href="expense.php" class="active_main_aside_menu">',$html);
+            break;
+
+            case 'income':
+                $html = str_replace('<a href="income.php">','<a href="income.php" class="active_main_aside_menu">',$html);
+                break;
+
+                case 'stock':
+                    $html = str_replace('<a href="stock.php">','<a href="stock.php" class="active_main_aside_menu">',$html);
+                    break;
+
+                    case 'skills':
+                        $html = str_replace('<a href="skills.php">','<a href="skills.php" class="active_main_aside_menu">',$html);
+                        break;
+
+                        case 'activites':
+                            $html = str_replace('<a href="activites.php">','<a href="activites.php" class="active_main_aside_menu">',$html);
+                            break;
+
+                            case 'users':
+                                $html = str_replace('<a href="users.php">','<a href="users.php" class="active_main_aside_menu">',$html);
+                                break;
+    }
+
+    echo $html;
+
+}
+
 ?>
