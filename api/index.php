@@ -40,5 +40,3 @@ else if($Mode == "DELETE") {
 else if($Mode == "QUERY") {
     $DB->query($Query);
 }
-
-?>

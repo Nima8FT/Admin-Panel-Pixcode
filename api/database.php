@@ -109,5 +109,3 @@ public function query($qry) {
 }
 
 }
-
-?>

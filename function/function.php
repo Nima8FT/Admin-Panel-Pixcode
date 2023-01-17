@@ -19,11 +19,12 @@ function ReqAPI($url, $data)
 }
 
 
-function aside_menu() {
-    $name_page = explode('/',$_SERVER['REQUEST_URI'])[3];
-    $name_page = explode('.',$name_page)[0];
-    $html = 
-    '<a href="expense.php">
+function aside_menu()
+{
+    $name_page = explode('/', $_SERVER['REQUEST_URI'])[3];
+    $name_page = explode('.', $name_page)[0];
+    $html =
+        '<a href="expense.php">
         <img src="../assets/img/expense.png" alt="Expense">
         Expense
     </a>
@@ -55,32 +56,29 @@ function aside_menu() {
 
     switch ($name_page) {
         case 'expense':
-            $html = str_replace('<a href="expense.php">','<a href="expense.php" class="active_main_aside_menu">',$html);
+            $html = str_replace('<a href="expense.php">', '<a href="expense.php" class="active_main_aside_menu">', $html);
             break;
 
-            case 'income':
-                $html = str_replace('<a href="income.php">','<a href="income.php" class="active_main_aside_menu">',$html);
-                break;
+        case 'income':
+            $html = str_replace('<a href="income.php">', '<a href="income.php" class="active_main_aside_menu">', $html);
+            break;
 
-                case 'stock':
-                    $html = str_replace('<a href="stock.php">','<a href="stock.php" class="active_main_aside_menu">',$html);
-                    break;
+        case 'stock':
+            $html = str_replace('<a href="stock.php">', '<a href="stock.php" class="active_main_aside_menu">', $html);
+            break;
 
-                    case 'skills':
-                        $html = str_replace('<a href="skills.php">','<a href="skills.php" class="active_main_aside_menu">',$html);
-                        break;
+        case 'skills':
+            $html = str_replace('<a href="skills.php">', '<a href="skills.php" class="active_main_aside_menu">', $html);
+            break;
 
-                        case 'activites':
-                            $html = str_replace('<a href="activites.php">','<a href="activites.php" class="active_main_aside_menu">',$html);
-                            break;
+        case 'activites':
+            $html = str_replace('<a href="activites.php">', '<a href="activites.php" class="active_main_aside_menu">', $html);
+            break;
 
-                            case 'users':
-                                $html = str_replace('<a href="users.php">','<a href="users.php" class="active_main_aside_menu">',$html);
-                                break;
+        case 'users':
+            $html = str_replace('<a href="users.php">', '<a href="users.php" class="active_main_aside_menu">', $html);
+            break;
     }
 
     echo $html;
-
 }
-
-?>
