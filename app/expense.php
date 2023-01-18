@@ -4,24 +4,14 @@ include('php/aside.php');
 
 <main class="main">
 
-    <?php header_name() ?>
+<?php header_name('nickname','users') ?>
 
     <table class="main__table">
 
-        <thead>
-            <tr class="thead_Item">
-                <th>ID</th>
-                <th>Name_User</th>
-                <th>Name</th>
-                <th>Money</th>
-                <th>Date</th>
-                <th>Paid</th>
-                <th>Des</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+    <?php header_table('expense',array()) ?>
 
         <tbody>
+            <th style="display: none;"></th>
 
             <tr class="main_detail">
                 <td>

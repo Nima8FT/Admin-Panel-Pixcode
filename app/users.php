@@ -10,19 +10,7 @@ include('php/aside.php');
 
     <table class="main__table">
 
-        <thead>
-            <tr class="thead_Item">
-                <th>ID</th>
-                <th>Name</th>
-                <th>Familly</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>isAdmin</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+        <?php header_table('users',array('finishAt','startAt')) ?>
 
         <tbody>
 

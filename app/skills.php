@@ -4,18 +4,11 @@ include('php/aside.php');
 
 <main class="main">
 
-    <?php header_name() ?>
+<?php header_name('nickname','users') ?>
 
     <table class="main__table">
 
-        <thead>
-            <tr class="thead_Item">
-                <th>ID</th>
-                <th>Name_User</th>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+    <?php header_table('skills',array()) ?>
 
         <tbody>
 

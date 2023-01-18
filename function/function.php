@@ -15,7 +15,7 @@ function ReqAPI($url, $data)
     $context = stream_context_create($opts);
     $result = file_get_contents($url, false, $context);
 
-    return json_decode($result, true); 
+    return json_decode($result, true);
 }
 
 function aside_menu()
@@ -82,21 +82,21 @@ function aside_menu()
     echo $html;
 }
 
-function header_name()
+function header_name($is_search, $table)
 {
     $response = ReqAPI(
         'http://localhost/Admin-Panel-Pixcode/api/index.php',
         array(
             "Mode" => "QUERY",
-            "Query" => "SELECT `nickname` FROM `users`"
+            "Query" => 'SELECT ' . $is_search . ' FROM ' . $table . ''
         )
     );
 
     $html = '<article class="header_menu_main">';
 
-    for ($i=0; $i < count($response); $i++) { 
+    for ($i = 0; $i < count($response); $i++) {
         foreach ($response[$i] as $key => $value) {
-            $html .= '<button>'.$value.'</button>';
+            $html .= '<button>' . $value . '</button>';
         }
     }
 
@@ -104,3 +104,44 @@ function header_name()
     echo $html;
 
 }
+
+function header_table($table, $exc)
+{
+    $response = ReqAPI(
+        'http://localhost/Admin-Panel-Pixcode/api/index.php',
+        array(
+            "Mode" => "QUERY",
+            "Query" => 'DESCRIBE ' . $table
+        )
+    );
+
+    $html = '<thead><tr class="thead_Item">';
+
+    for ($i = 0; $i < count($response); $i++) {
+        foreach ($response[$i] as $key => $value) {
+            if ($key == "Field") {
+                $is_exc = false;
+
+                if ($exc !== "") {
+                    for ($j = 0; $j < count($exc); $j++) {
+                        if ($exc[$j] == $value) {
+                            $is_exc = true;
+                            $html .= '<th style="display:none;">' . $value . '</th>';
+                        }
+                    }
+                }
+
+                if ($is_exc == false) {
+                    $is_exc = false;
+                    $html .= '<th>' . ucfirst($value) . '</th>';
+                }
+            }
+        }
+    }
+
+    $html .= '<th>Actions</th></tr></thead>';
+
+    echo $html;
+
+}
+
