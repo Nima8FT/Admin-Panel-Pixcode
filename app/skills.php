@@ -4,14 +4,7 @@ include('php/aside.php');
 
 <main class="main">
 
-    <article class="header_menu_main">
-        <button class="active_header_menu_main">Nima</button>
-        <button>Hak</button>
-        <button>Asrjadid</button>
-        <button>Te</button>
-        <button>Vatan</button>
-        <button>All</button>
-    </article>
+    <?php header_name() ?>
 
     <table class="main__table">
 

@@ -13,7 +13,7 @@ function __construct() {
     try {
         $this->con = new PDO("mysql:host=$this->servername;dbname=$this->dbname;charset=utf8",$this->username,$this->password);
         $this->con->setAttribute(PDO::ATTR_ERRMODE , PDO::ERRMODE_EXCEPTION);
-        echo "ok";
+        // echo "ok";
     } catch (PDOException $e) {
         echo "connection failed: " . $e->getMessage();
     }

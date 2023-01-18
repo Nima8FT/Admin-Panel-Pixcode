@@ -15,9 +15,8 @@ function ReqAPI($url, $data)
     $context = stream_context_create($opts);
     $result = file_get_contents($url, false, $context);
 
-    return json_decode($result, true);
+    return json_decode($result, true); 
 }
-
 
 function aside_menu()
 {
@@ -81,4 +80,27 @@ function aside_menu()
     }
 
     echo $html;
+}
+
+function header_name()
+{
+    $response = ReqAPI(
+        'http://localhost/Admin-Panel-Pixcode/api/index.php',
+        array(
+            "Mode" => "QUERY",
+            "Query" => "SELECT `nickname` FROM `users`"
+        )
+    );
+
+    $html = '<article class="header_menu_main">';
+
+    for ($i=0; $i < count($response); $i++) { 
+        foreach ($response[$i] as $key => $value) {
+            $html .= '<button>'.$value.'</button>';
+        }
+    }
+
+    $html .= '<button>All</button></article>';
+    echo $html;
+
 }
