@@ -145,3 +145,44 @@ function header_table($table, $exc)
 
 }
 
+function info_table($table , $exc) {
+    $response = ReqAPI(
+        'http://localhost/Admin-Panel-Pixcode/api/index.php',
+        array(
+            "Mode" => "QUERY",
+            "Query" => 'SELECT * FROM ' . $table
+        )
+    );
+
+    $html = '<tbody>';
+
+    for ($i=0; $i < count($response); $i++) { 
+
+        $html .= '<tr class="main_detail">';
+
+        foreach ($response[$i] as $key => $value) {
+
+            $is_exc = false;
+
+            if($exc !== "") {
+                for ($j=0; $j < count($exc); $j++) { 
+                    if($exc[$j] == $key) {
+                        $is_exc = true;
+                        $html .= '<td style="display:none;"><div>'.$value.'</div></td>';
+                    }
+                }
+            }
+
+            if($is_exc == false) {
+                $is_exc = false;
+                $html .= '<td><div>'.$value.'</div></td>';
+            }
+        }
+
+        $html .= '<td><div><img class="delete_row" src="../assets/img/delete.png" alt="delete"></div></td>';
+        $html .= '</tr>';
+    }
+
+    $html .= '</tbody>';
+    echo $html;
+}
