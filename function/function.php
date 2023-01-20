@@ -179,10 +179,23 @@ function info_table($table , $exc) {
             }
         }
 
-        $html .= '<td><div><img class="delete_row" src="../assets/img/delete.png" alt="delete"></div></td>';
+        $html .= '<td class="delete_row_table"><div><button type="submit" name="action" value="delete/'.$response[$i]["id"].'/'.$table.'"><img class="delete_row" src="../assets/img/delete.png" alt="delete"></button></div></td>';
         $html .= '</tr>';
     }
 
     $html .= '</tbody>';
     echo $html;
+}
+
+
+function delete_table($table , $id) {
+    $response = ReqAPI(
+        'http://localhost/Admin-Panel-Pixcode/api/index.php',
+        array(
+            "Mode" => "DELETE",
+            "Table" =>  $table,
+            "ID" => $id
+        )
+    );
+    echo $response;
 }

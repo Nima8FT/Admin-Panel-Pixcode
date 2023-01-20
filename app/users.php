@@ -1,7 +1,7 @@
 <?php
 include('php/aside.php');
 $table = 'users';
-$exc = array('finishAt', 'startAt','id','email','familly');
+$exc = array('finishAt', 'startAt', 'id', 'email', 'familly');
 ?>
 
 <main class="main">
@@ -12,13 +12,17 @@ $exc = array('finishAt', 'startAt','id','email','familly');
 
     <table class="main__table">
 
-        <?php header_table($table,$exc) ?>
+        <form action="users.php" method="POST">
 
-        <?php info_table($table, $exc) ?>
+            <?php header_table($table, $exc) ?>
 
-        <div class="btn_main">
-            <img src="../assets/img/4315609.png" alt="">
-        </div>
+            <?php info_table($table, $exc) ?>
+
+            <div class="btn_main">
+                <img src="../assets/img/4315609.png" alt="">
+            </div>
+
+        </form>
 
     </table>
 

@@ -34,10 +34,7 @@ $(document).ready(function () {
             $(".aside").css("opacity", ".5");
             $(".main").css("opacity", ".5");
         }
-        else {
-            $(e.currentTarget).parent().css("display", "none");
-        }
-    });
+    });;
 
     $(".btn_bool_form").click(function (e) {
         counter++;

@@ -1,3 +1,28 @@
+<?php
+
+if (isset($_POST['action'])) {
+
+    $action = explode('/', $_POST['action']);
+    $ac = $action[0];    
+    $id = $action[1];
+    $table = $action[2];
+    unset($_POST['action']);
+
+    if($ac == "insert") {
+
+    }
+    else if($ac == "update") {
+
+    }
+    else if($ac == "delete") {
+        delete_table($table, $id);
+    }
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,8 +35,6 @@
     <link rel="stylesheet" href="../assets/css/apps.css">
     <link rel="stylesheet" href="../assets/css/font.css">
     <link rel="stylesheet" href="../assets/css/_Normalize.css">
-    <link rel="stylesheet" href="../assets/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/_Responsive.css">
 
     <title>Finacial Management Pixcode</title>
 </head>
