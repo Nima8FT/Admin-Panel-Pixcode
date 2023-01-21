@@ -185,9 +185,17 @@ function info_table($table, $exc, $table_join_main)
 
             if ($is_exc == false) {
                 $is_exc = false;
+
                 if ($key == 'id_user') {
                     foreach ($res[$i] as $key => $value) {
                         $html .= '<td><div>' . $value . '</div></td>';
+                    }
+                } else if ($key == 'paid' || $key == 'isAdmin') {
+                    if($value == 1) {
+                        $html .= '<td><div>true</div></td>';
+                    }
+                    else if($value == 0) {
+                        $html .= '<td><div>false</div></td>';
                     }
                 } else {
                     $html .= '<td><div>' . $value . '</div></td>';
