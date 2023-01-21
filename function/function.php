@@ -216,7 +216,7 @@ function info_table($table, $exc, $table_join_main)
 }
 
 
-function selectbox_form($table)
+function selectbox_form($table, $name)
 {
     $response = ReqAPI(
         'http://localhost/Admin-Panel-Pixcode/api/index.php',
@@ -226,7 +226,7 @@ function selectbox_form($table)
         )
     );
 
-    $html = '<select name="box_selected" id="box_selected">';
+    $html = '<div class="select_form"><label for="' . $name . '">' . $name . '</label><select name="box_selected" id="box_selected">';
 
     for ($i = 0; $i < count($response); $i++) {
         foreach ($response[$i] as $key => $value) {
@@ -234,9 +234,74 @@ function selectbox_form($table)
         }
     }
 
-    $html .= '</select>';
+    $html .= '</select></div> ';
+
+    return $html;
+}
+
+
+function html_form($table)
+{
+    $response = ReqAPI(
+        'http://localhost/Admin-Panel-Pixcode/api/index.php',
+        array(
+            "Mode" => "QUERY",
+            "Query" => 'DESCRIBE ' . $table
+        )
+    );
+
+    $html = "";
+
+    for ($i = 0; $i < count($response); $i++) {
+        $type = $response[$i]["Type"];
+        $field = $response[$i]["Field"];
+        $key = $response[$i]["Key"];
+        // var_dump($response);
+
+        if ($type == "mediumtext") {
+            $html .=
+                '<div class="txt_des textarea">' .
+                '<label for="' . $field . '">' . $field . '</label>' .
+                '<textarea id="des_edit" class="' . $field . '" name="' . $field . '" type="text"></textarea>' .
+                '</div>';
+        } else if ($type == "date") {
+            $html .=
+                '<div class="txt_date">' .
+                '<label for="' . $field . '">' . $field . '</label>' .
+                '<input id="input_date" class="' . $field . '" name="' . $field . '" type="date">' .
+                '</div>';
+        } else if ($type == "varchar(250)" || $type == "varchar(11)") {
+            if ($field == "money") {
+                $html .=
+                    '<div class="txt_form">' .
+                    '<label for="' . $field . '">' . $field . '</label>' .
+                    '<input type="text" name="' . $field . '" id="' . $field . '_edit">' .
+                    '</div>';
+            } else {
+                $html .=
+                    '<div class="txt_form">' .
+                    '<label for="' . $field . '">' . $field . '</label>' .
+                    '<input type="text" name="' . $field . '" class="' . $field . '" id="name_edit">' .
+                    '</div>';
+            }
+        } else if ($type == "int(11)" && $key == "MUL") {
+            $html .= selectbox_form('users', $field);
+        } else if ($type == "tinyint(4)") {
+            $html .=
+                '<div class="btn_bool_form">' .
+                '<a>' . $field . '</a>' .
+                '</div>';
+        } else if ($type == "int(11)" && $key !== "PRI") {
+            $html .=
+                '<div class="txt_form">' .
+                '<label for="'.$field.'">'.$field.'</label>' .
+                '<input type="text" name="'.$field.'" id="'.$field.'_edit">' .
+                '</div>';
+        }
+    }
 
     echo $html;
+
 }
 
 
