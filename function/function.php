@@ -145,7 +145,9 @@ function header_table($table, $exc)
 
 }
 
-function info_table($table , $exc) {
+function info_table($table, $exc, $table_join_main)
+{
+
     $response = ReqAPI(
         'http://localhost/Admin-Panel-Pixcode/api/index.php',
         array(
@@ -154,9 +156,17 @@ function info_table($table , $exc) {
         )
     );
 
+    $res = ReqAPI(
+        'http://localhost/Admin-Panel-Pixcode/api/index.php',
+        array(
+            "Mode" => "QUERY",
+            "Query" => 'SELECT ' . $table_join_main . '.nickname FROM ' . $table . ' INNER JOIN ' . $table_join_main . ' ON ' . $table . '.id_user = ' . $table_join_main . '.id'
+        )
+    );
+
     $html = '<tbody>';
 
-    for ($i=0; $i < count($response); $i++) { 
+    for ($i = 0; $i < count($response); $i++) {
 
         $html .= '<tr class="main_detail">';
 
@@ -164,22 +174,28 @@ function info_table($table , $exc) {
 
             $is_exc = false;
 
-            if($exc !== "") {
-                for ($j=0; $j < count($exc); $j++) { 
-                    if($exc[$j] == $key) {
+            if ($exc !== "") {
+                for ($j = 0; $j < count($exc); $j++) {
+                    if ($exc[$j] == $key) {
                         $is_exc = true;
-                        $html .= '<td style="display:none;"><div>'.$value.'</div></td>';
+                        $html .= '<td style="display:none;"><div>' . $value . '</div></td>';
                     }
                 }
             }
 
-            if($is_exc == false) {
+            if ($is_exc == false) {
                 $is_exc = false;
-                $html .= '<td><div>'.$value.'</div></td>';
+                if ($key == 'id_user') {
+                    foreach ($res[$i] as $key => $value) {
+                        $html .= '<td><div>' . $value . '</div></td>';
+                    }
+                } else {
+                    $html .= '<td><div>' . $value . '</div></td>';
+                }
             }
         }
 
-        $html .= '<td class="delete_row_table"><div><button type="submit" name="action" value="delete/'.$response[$i]["id"].'/'.$table.'"><img class="delete_row" src="../assets/img/delete.png" alt="delete"></button></div></td>';
+        $html .= '<td class="delete_row_table"><div><button type="submit" name="action" value="delete/' . $response[$i]["id"] . '/' . $table . '"><img class="delete_row" src="../assets/img/delete.png" alt="delete"></button></div></td>';
         $html .= '</tr>';
     }
 
@@ -188,12 +204,13 @@ function info_table($table , $exc) {
 }
 
 
-function delete_table($table , $id) {
+function delete_table($table, $id)
+{
     $response = ReqAPI(
         'http://localhost/Admin-Panel-Pixcode/api/index.php',
         array(
             "Mode" => "DELETE",
-            "Table" =>  $table,
+            "Table" => $table,
             "ID" => $id
         )
     );

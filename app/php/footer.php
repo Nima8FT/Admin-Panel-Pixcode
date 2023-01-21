@@ -2,7 +2,7 @@
 
     <img class="exit_form_edit" src="../assets/img/exit.png" alt="Exit">
 
-    <form action="">
+    <form action="" method="POST">
 
         <div class="txt_form">
             <label for="">ID</label>
@@ -39,14 +39,16 @@
         </div>
 
         <div class="btn_form">
-            <button>Add/Edit</button>
+            <button name="action" value="insert" class="add_form_btn">Add</button>
+            <button name="action" value="update" class="edit_form_btn">Edit</button>
         </div>
 
     </form>
+
 </article>
 
 </body>
 <script src="../assets/js/jquery-3.6.0.min.js"></script>
-<script src="../assets/js/mains.js"></script>
+<script src="../assets/js/main.js"></script>
 
 </html>

@@ -13,7 +13,7 @@ $exc = array('id');
 
             <?php header_table($table, $exc) ?>
 
-            <?php info_table($table, $exc) ?>
+            <?php info_table($table, $exc,'users') ?>
 
             <div class="btn_main">
                 <img src="../assets/img/4315609.png" alt="">
