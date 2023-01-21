@@ -11,11 +11,7 @@
 
         <div class="select_form">
             <label for="name_user">Name User</label>
-            <select name="box_selected" id="box_selected">
-                <option value="nima">Nima</option>
-                <option value="Te">Te</option>
-                <option value="vatan">Vatan</option>
-            </select>
+            <?php selectbox_form('users') ?> 
         </div>
 
         <div class="txt_form">

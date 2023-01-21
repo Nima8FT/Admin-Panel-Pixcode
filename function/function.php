@@ -2,6 +2,7 @@
 
 session_start();
 
+
 function ReqAPI($url, $data)
 {
     $opts = array(
@@ -17,6 +18,7 @@ function ReqAPI($url, $data)
 
     return json_decode($result, true);
 }
+
 
 function aside_menu()
 {
@@ -82,6 +84,7 @@ function aside_menu()
     echo $html;
 }
 
+
 function header_name($is_search, $table)
 {
     $response = ReqAPI(
@@ -104,6 +107,7 @@ function header_name($is_search, $table)
     echo $html;
 
 }
+
 
 function header_table($table, $exc)
 {
@@ -144,6 +148,7 @@ function header_table($table, $exc)
     echo $html;
 
 }
+
 
 function info_table($table, $exc, $table_join_main)
 {
@@ -191,10 +196,9 @@ function info_table($table, $exc, $table_join_main)
                         $html .= '<td><div>' . $value . '</div></td>';
                     }
                 } else if ($key == 'paid' || $key == 'isAdmin') {
-                    if($value == 1) {
+                    if ($value == 1) {
                         $html .= '<td><div>true</div></td>';
-                    }
-                    else if($value == 0) {
+                    } else if ($value == 0) {
                         $html .= '<td><div>false</div></td>';
                     }
                 } else {
@@ -208,6 +212,30 @@ function info_table($table, $exc, $table_join_main)
     }
 
     $html .= '</tbody>';
+    echo $html;
+}
+
+
+function selectbox_form($table)
+{
+    $response = ReqAPI(
+        'http://localhost/Admin-Panel-Pixcode/api/index.php',
+        array(
+            "Mode" => "QUERY",
+            "Query" => 'SELECT `nickname` FROM ' . $table
+        )
+    );
+
+    $html = '<select name="box_selected" id="box_selected">';
+
+    for ($i = 0; $i < count($response); $i++) {
+        foreach ($response[$i] as $key => $value) {
+            $html .= '<option value="' . $value . '">' . $value . '</option>';
+        }
+    }
+
+    $html .= '</select>';
+
     echo $html;
 }
 
