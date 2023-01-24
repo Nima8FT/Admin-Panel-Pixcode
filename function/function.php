@@ -171,11 +171,50 @@ function info_table($table, $exc, $table_join_main)
 
     $html = '<tbody>';
 
-    for ($i = 0; $i < count($response); $i++) {
+    if ($response[0] !== NULL) {
 
+        for ($i = 0; $i < count($response); $i++) {
+
+            $html .= '<tr class="main_detail">';
+
+            foreach ($response[$i] as $key => $value) {
+
+                $is_exc = false;
+
+                if ($exc !== "") {
+                    for ($j = 0; $j < count($exc); $j++) {
+                        if ($exc[$j] == $key) {
+                            $is_exc = true;
+                            $html .= '<td style="display:none;"><div>' . $value . '</div></td>';
+                        }
+                    }
+                }
+
+                if ($is_exc == false) {
+                    $is_exc = false;
+
+                    if ($key == 'id_user') {
+                        foreach ($res[$i] as $key => $value) {
+                            $html .= '<td><div>' . $value . '</div></td>';
+                        }
+                    } else if ($key == 'paid' || $key == 'isAdmin') {
+                        if ($value == 1) {
+                            $html .= '<td><div>true</div></td>';
+                        } else if ($value == 0) {
+                            $html .= '<td><div>false</div></td>';
+                        }
+                    } else {
+                        $html .= '<td><div>' . $value . '</div></td>';
+                    }
+                }
+            }
+            $html .= '<td class="delete_row_table"><div><button type="submit" name="action" value="delete/' . $response[$i]["id"] . '/' . $table . '"><img class="delete_row" src="../assets/img/delete.png" alt="delete"></button></div></td>';
+            $html .= '</tr>';
+        }
+    } else if ($response[0] == NULL) {
         $html .= '<tr class="main_detail">';
 
-        foreach ($response[$i] as $key => $value) {
+        foreach ($response as $key => $value) {
 
             $is_exc = false;
 
@@ -192,7 +231,7 @@ function info_table($table, $exc, $table_join_main)
                 $is_exc = false;
 
                 if ($key == 'id_user') {
-                    foreach ($res[$i] as $key => $value) {
+                    foreach ($res as $key => $value) {
                         $html .= '<td><div>' . $value . '</div></td>';
                     }
                 } else if ($key == 'paid' || $key == 'isAdmin') {
@@ -206,8 +245,7 @@ function info_table($table, $exc, $table_join_main)
                 }
             }
         }
-
-        $html .= '<td class="delete_row_table"><div><button type="submit" name="action" value="delete/' . $response[$i]["id"] . '/' . $table . '"><img class="delete_row" src="../assets/img/delete.png" alt="delete"></button></div></td>';
+        $html .= '<td class="delete_row_table"><div><button type="submit" name="action" value="delete/' . $response["id"] . '/' . $table . '"><img class="delete_row" src="../assets/img/delete.png" alt="delete"></button></div></td>';
         $html .= '</tr>';
     }
 
@@ -378,13 +416,15 @@ function update_table($table, $post, $id)
         $i++;
     }
 
-    $response = ReqAPI('http://localhost/Admin-Panel-Pixcode/api/index.php', array(
-        "Mode" => "UPDATE",
-        "Table" => $table,
-        "ID" => $id,
-        "Fields" => $Fields,
-        "Values" => $Values
-    )
+    $response = ReqAPI(
+        'http://localhost/Admin-Panel-Pixcode/api/index.php',
+        array(
+            "Mode" => "UPDATE",
+            "Table" => $table,
+            "ID" => $id,
+            "Fields" => $Fields,
+            "Values" => $Values
+        )
     );
     echo $response;
 }
