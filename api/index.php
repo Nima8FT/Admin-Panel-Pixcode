@@ -22,9 +22,11 @@ if(!isset($_POST['ID'])) {
 $Mode = $_POST['Mode'];
 $Table = $_POST['Table'];
 $Query = $_POST['Query'];
-$Fields = explode('<#>',$_POST['Fields']);
-$Values = explode('<#>' , $_POST['Values']);
+$Fields = explode('<#>', $_POST['Fields']);
+$Values = explode('<#>', $_POST['Values']);
 $ID = $_POST['ID'];
+
+// var_dump($_POST);
 
 $DB = new Database();
 

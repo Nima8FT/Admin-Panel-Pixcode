@@ -222,16 +222,14 @@ function selectbox_form($table, $name)
         'http://localhost/Admin-Panel-Pixcode/api/index.php',
         array(
             "Mode" => "QUERY",
-            "Query" => 'SELECT `nickname` FROM ' . $table
+            "Query" => 'SELECT `id`,`nickname` FROM ' . $table
         )
     );
 
-    $html = '<div class="select_form"><label for="' . $name . '">' . $name . '</label><select name="box_selected" id="box_selected">';
+    $html = '<div class="select_form"><label for="' . $name . '">' . $name . '</label><select name="' . $name . '" id="box_selected">';
 
     for ($i = 0; $i < count($response); $i++) {
-        foreach ($response[$i] as $key => $value) {
-            $html .= '<option value="' . $value . '">' . $value . '</option>';
-        }
+        $html .= '<option class="box_' . $response[$i]["nickname"] . '" value="' . $response[$i]["id"] . '">' . $response[$i]['nickname'] . '</option>';
     }
 
     $html .= '</select></div> ';
@@ -256,7 +254,6 @@ function html_form($table)
         $type = $response[$i]["Type"];
         $field = $response[$i]["Field"];
         $key = $response[$i]["Key"];
-        // var_dump($response);
 
         if ($type == "mediumtext") {
             $html .=
@@ -275,7 +272,7 @@ function html_form($table)
                 $html .=
                     '<div class="txt_form">' .
                     '<label for="' . $field . '">' . $field . '</label>' .
-                    '<input type="text" name="' . $field . '" id="' . $field . '_edit">' .
+                    '<input type="text" class="' . $field . '" name="' . $field . '" id="' . $field . '_edit">' .
                     '</div>';
             } else {
                 $html .=
@@ -290,18 +287,106 @@ function html_form($table)
             $html .=
                 '<div class="btn_bool_form">' .
                 '<a>' . $field . '</a>' .
+                '<input style="display:none;" name="' . $field . '">' .
                 '</div>';
         } else if ($type == "int(11)" && $key !== "PRI") {
             $html .=
                 '<div class="txt_form">' .
-                '<label for="'.$field.'">'.$field.'</label>' .
-                '<input type="text" name="'.$field.'" id="'.$field.'_edit">' .
+                '<label for="' . $field . '">' . $field . '</label>' .
+                '<input type="text" class="' . $field . '" name="' . $field . '" id="' . $field . '_edit">' .
+                '</div>';
+        } else if ($type == "int(11)" && $key == "PRI") {
+            $html .=
+                '<div class="txt_form" style="display:none;">' .
+                '<label for="' . $field . '">' . $field . '</label>' .
+                '<input type="text" class="' . $field . '" name="' . $field . '" id="' . $field . '_edit">' .
                 '</div>';
         }
     }
 
+    $html .=
+        '<div class="btn_form">' .
+        '<button name="action" value="insert/1/' . $table . '" class="add_form_btn">Add</button>' .
+        '<button name="action" value="update/1/' . $table . '" class="edit_form_btn">Edit</button>' .
+        '</div>';
+
     echo $html;
 
+}
+
+
+function insert_table($table, $post)
+{
+
+    $fields = "";
+    $values = "";
+    $i = 1;
+
+    foreach ($post as $key => $value) {
+        if ($value == "") {
+            unset($post[$key]);
+        }
+    }
+
+    foreach ($post as $key => $value) {
+        if (count($post) == $i) {
+            $fields .= $key;
+            $values .= $value;
+        } else {
+            $fields .= $key . '<#>';
+            $values .= $value . '<#>';
+        }
+        $i++;
+    }
+
+    $response = ReqAPI(
+        'http://localhost/Admin-Panel-Pixcode/api/index.php',
+        array(
+            "Mode" => "INSERT",
+            "Table" => $table,
+            "Fields" => $fields,
+            "Values" => $values
+        )
+    );
+
+    echo $response;
+}
+
+
+function update_table($table, $post, $id)
+{
+    unset($post['id']);
+    $Fields = "";
+    $Values = "";
+    $i = 1;
+
+    $post = $_POST;
+
+    foreach ($post as $key => $val) {
+        if ($val == "")
+            unset($post[$key]);
+    }
+
+    foreach ($post as $key => $val) {
+        if (count($post) == $i) {
+            $Fields .= $key;
+            $Values .= $val;
+        } else {
+            $Fields .= $key . '<#>';
+            $Values .= $val . '<#>';
+        }
+        $i++;
+    }
+
+    $response = ReqAPI('http://localhost/Admin-Panel-Pixcode/api/index.php', array(
+        "Mode" => "UPDATE",
+        "Table" => $table,
+        "ID" => $id,
+        "Fields" => $Fields,
+        "Values" => $Values
+    )
+    );
+    echo $response;
 }
 
 

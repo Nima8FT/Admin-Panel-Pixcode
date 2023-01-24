@@ -3,18 +3,21 @@
 if (isset($_POST['action'])) {
 
     $action = explode('/', $_POST['action']);
-    $ac = $action[0];    
+    $ac = $action[0];
     $id = $action[1];
     $table = $action[2];
     unset($_POST['action']);
 
-    if($ac == "insert") {
-
+    if (isset($_POST["id"])) {
+        $ID = $_POST["id"];
+        unset($_POST['id']);
     }
-    else if($ac == "update") {
 
-    }
-    else if($ac == "delete") {
+    if ($ac == "insert") {
+        insert_table($table, $_POST);
+    } else if ($ac == "update") {
+        update_table($table, $_POST, $ID);
+    } else if ($ac == "delete") {
         delete_table($table, $id);
     }
 
