@@ -152,13 +152,8 @@ $(document).ready(function () {
     }
   });
 
-  $("#money_edit").change(function (e) {
-    var html = $("#money_edit").val();
-    var money = input_Seperate(html);
-    $("#money_edit").val(money);
+  $("#money_edit").keyup(function (e) {
+    var html = parseInt($("#money_edit").val().replace(',','').replace(',','').replace(',','').replace(',','').replace(',',''));
+  $('#money_edit').val(html.toLocaleString()); 
   });
 });
-
-function input_Seperate(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
