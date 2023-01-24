@@ -98,8 +98,8 @@ function header_name($is_search, $table)
     $html = '<article class="header_menu_main">';
 
     for ($i = 0; $i < count($response); $i++) {
-        foreach ($response[$i] as $key => $value) {
-            $html .= '<button class="header_name">' . $value . '</button>';
+        if ($response[$i]['isAdmin'] == 1) {
+            $html .= '<button class="header_name">' . $response[$i]['nickname'] . '</button>';
         }
     }
 
@@ -175,7 +175,7 @@ function info_table($table, $exc, $table_join_main)
 
         for ($i = 0; $i < count($response); $i++) {
 
-            $html .= '<tr class="main_detail row'.$i.'">';
+            $html .= '<tr class="main_detail row' . $i . '">';
 
             foreach ($response[$i] as $key => $value) {
 
@@ -353,7 +353,7 @@ function html_form($table)
 }
 
 
-function info_iduser($table,$table_join_main)
+function info_iduser($table, $table_join_main)
 {
 
     $response = ReqAPI(
@@ -366,7 +366,7 @@ function info_iduser($table,$table_join_main)
 
     $arr = [];
 
-    for ($i=0; $i < count($response); $i++) { 
+    for ($i = 0; $i < count($response); $i++) {
         foreach ($response[$i] as $key => $value) {
             array_push($arr, $value);
         }

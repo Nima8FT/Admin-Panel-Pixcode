@@ -11,7 +11,7 @@ $arr = info_iduser($table, 'users');
 
 <main class="main">
 
-    <?php header_name('nickname', 'users') ?>
+    <?php header_name('nickname,isAdmin', 'users') ?>
 
     <table class="main__table">
 

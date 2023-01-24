@@ -42,4 +42,4 @@ if (isset($_POST['action'])) {
     <title>Finacial Management Pixcode</title>
 </head>
 
-<body>
+<body style="-webkit-user-select: none !important;-moz-user-select: none !important;-ms-user-select: none !important;user-select: none !important;">
