@@ -2,7 +2,13 @@
 include('php/aside.php');
 $table = 'income';
 $exc = array('id');
+$arr = info_iduser($table, 'users');
 ?>
+
+
+<script>
+    const array_iduser =  <?= $arr ?>;
+</script>
 
 <main class="main">
 
@@ -13,7 +19,7 @@ $exc = array('id');
 
             <?php header_table($table, $exc) ?>
 
-            <?php info_table($table, $exc,'users') ?>
+            <?php info_table($table, $exc, 'users') ?>
 
             <div class="btn_main">
                 <img src="../assets/img/4315609.png" alt="">

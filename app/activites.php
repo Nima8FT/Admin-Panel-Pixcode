@@ -2,7 +2,12 @@
 include('php/aside.php');
 $table = 'activities';
 $exc = array('id');
+$arr = info_iduser($table, 'users');
 ?>
+
+<script>
+    const array_iduser =  <?= $arr ?>;
+</script>
 
 <main class="main">
 

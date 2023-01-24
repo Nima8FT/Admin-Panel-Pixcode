@@ -1,9 +1,21 @@
 var counter = 0;
 
 $(document).ready(function () {
-  $(".header_menu_main > button").click(function (e) {
-    $(".header_menu_main > button").removeClass("active_header_menu_main");
+
+  $(".all_header_name").addClass("active_header_menu_main");
+
+  $(".header_name").click(function (e) {
+    $(".header_name").removeClass("active_header_menu_main");
     $(e.currentTarget).addClass("active_header_menu_main");
+    var txt_header_name = $(e.currentTarget).html();
+    $(".main_detail").css("display", "none");
+    for (let i = 0; i < array_iduser.length; i++) {
+      if (txt_header_name == array_iduser[i]) {
+        $(".row" + i).css("display", "flex");
+      } else if (txt_header_name == "All") {
+        $(".main_detail").css("display", "flex");
+      }
+    }
   });
 
   $(".btn_main").click(function (e) {

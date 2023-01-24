@@ -99,11 +99,11 @@ function header_name($is_search, $table)
 
     for ($i = 0; $i < count($response); $i++) {
         foreach ($response[$i] as $key => $value) {
-            $html .= '<button>' . $value . '</button>';
+            $html .= '<button class="header_name">' . $value . '</button>';
         }
     }
 
-    $html .= '<button>All</button></article>';
+    $html .= '<button class="header_name all_header_name">All</button></article>';
     echo $html;
 
 }
@@ -175,7 +175,7 @@ function info_table($table, $exc, $table_join_main)
 
         for ($i = 0; $i < count($response); $i++) {
 
-            $html .= '<tr class="main_detail">';
+            $html .= '<tr class="main_detail row'.$i.'">';
 
             foreach ($response[$i] as $key => $value) {
 
@@ -195,7 +195,7 @@ function info_table($table, $exc, $table_join_main)
 
                     if ($key == 'id_user') {
                         foreach ($res[$i] as $key => $value) {
-                            $html .= '<td><div>' . $value . '</div></td>';
+                            $html .= '<td><div class="id_user">' . $value . '</div></td>';
                         }
                     } else if ($key == 'paid' || $key == 'isAdmin') {
                         if ($value == 1) {
@@ -350,6 +350,29 @@ function html_form($table)
 
     echo $html;
 
+}
+
+
+function info_iduser($table,$table_join_main)
+{
+
+    $response = ReqAPI(
+        'http://localhost/Admin-Panel-Pixcode/api/index.php',
+        array(
+            "Mode" => "QUERY",
+            "Query" => 'SELECT ' . $table_join_main . '.nickname FROM ' . $table . ' INNER JOIN ' . $table_join_main . ' ON ' . $table . '.id_user = ' . $table_join_main . '.id'
+        )
+    );
+
+    $arr = [];
+
+    for ($i=0; $i < count($response); $i++) { 
+        foreach ($response[$i] as $key => $value) {
+            array_push($arr, $value);
+        }
+    }
+
+    return json_encode($arr);
 }
 
 
